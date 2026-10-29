@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>聊天风格蒸馏器 · 任意人物分身</title>
+<title>万物蒸馏器 · 任意人物分身</title>
 <style>
   :root{
     --bg:#f5f5f7; --panel:#ffffff; --line:#e6e6e9; --ink:#1d1d1f;
@@ -129,15 +129,28 @@
   .welcome .wbtn{border:none;background:var(--accent);color:#fff;font-size:15px;padding:12px 22px;border-radius:24px;cursor:pointer;box-shadow:0 4px 14px rgba(7,193,96,.3);}
   .welcome .wbtn:hover{filter:brightness(1.05);}
   .welcome .wsub{font-size:12px;color:var(--sub);margin-top:16px;}
+
+  /* 图标（仿微信线性图标） */
+  .rail-ic svg, .tb svg{width:22px;height:22px;display:block;}
+  .tb svg{width:20px;height:20px;}
+  .rail-ic{display:flex;align-items:center;justify-content:center;}
+
+  /* 头像图片 */
+  .avtimg{width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit;}
+  .avt,.cav,.av,.rail-av{overflow:hidden;}
+  .avset{display:flex;gap:18px;justify-content:space-around;margin-top:8px;}
+  .avset-item{display:flex;flex-direction:column;align-items:center;gap:8px;}
+  .avset-prev{width:64px;height:64px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:22px;overflow:hidden;background:#9aa0a6;}
+  .avset-cap{font-size:12px;color:var(--sub);}
 </style>
 </head>
 <body>
 <div class="app">
   <nav class="rail">
     <div class="rail-av" id="railAv" title="当前人物">🤖</div>
-    <div class="rail-ic" id="railChat" title="聊天">💬</div>
-    <div class="rail-ic" id="railBook" title="人物库">👥</div>
-    <div class="rail-bottom"><div class="rail-ic" id="railCfg" title="接口设置">⚙</div></div>
+    <div class="rail-ic" id="railChat" title="聊天"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.9-.9L3 21l1.9-5.6A8.5 8.5 0 1 1 21 11.5z"/></svg></div>
+    <div class="rail-ic" id="railBook" title="人物库"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+    <div class="rail-bottom"><div class="rail-ic" id="railCfg" title="接口设置"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div></div>
   </nav>
 
   <aside class="convlist">
@@ -158,10 +171,8 @@
     <div id="log"></div>
     <footer>
       <div class="toolbar">
-        <button class="tb" id="stkBtn" title="表情包">😀</button>
-        <button class="tb" id="attach" title="发送图片">🖼️</button>
-        <button class="tb" id="tbShot" title="截图（占位）">✂️</button>
-        <button class="tb" id="tbRec" title="聊天记录（占位）">📋</button>
+        <button class="tb" id="stkBtn" title="表情包"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></button>
+        <button class="tb" id="attach" title="发送图片"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></button>
       </div>
       <textarea id="msg" placeholder="说点啥…（Enter 发送，Shift+Enter 换行，可发图片/表情）" rows="1"></textarea>
       <button class="send" id="send">发送(S)</button>
@@ -174,6 +185,7 @@
     <input type="file" id="stkFile" accept="image/*" hidden />
 
     <div class="moremenu" id="moreMenu">
+      <div data-act="avatar">头像设置</div>
       <div data-act="memory">长期记忆</div>
       <div data-act="cfg">接口设置</div>
       <div data-act="about">关于 / 说明</div>
@@ -215,7 +227,7 @@
 <!-- 关于 -->
 <div class="mask" id="aboutMask">
   <div class="card">
-    <h3>关于 · 聊天风格蒸馏器</h3>
+    <h3>关于 · 万物蒸馏器</h3>
     <p style="font-size:14px;line-height:1.7;color:#333;">
       这是一个把<b>任意聊天记录</b>蒸馏成风格一致「分身」的小产品：<br>
       1. 点左下角「＋ 蒸馏新人物」，粘贴/上传一份聊天记录（支持 <code>- **名字** [时间]：内容</code> 或 <code>名字：内容</code> 等格式）；<br>
@@ -253,9 +265,32 @@
   </div>
 </div>
 
+<!-- 头像设置 -->
+<div class="mask" id="avatarMask">
+  <div class="card">
+    <h3>头像设置</h3>
+    <div class="avset">
+      <div class="avset-item">
+        <div class="avset-prev" id="mePrev">我</div>
+        <div class="avset-cap">你的头像（我）</div>
+        <button class="stkadd" id="meAvBtn">上传图片</button>
+        <input type="file" id="meAvFile" accept="image/*" hidden />
+      </div>
+      <div class="avset-item">
+        <div class="avset-prev" id="taPrev">TA</div>
+        <div class="avset-cap">TA 的头像（当前人物）</div>
+        <button class="stkadd" id="taAvBtn">上传图片</button>
+        <input type="file" id="taAvFile" accept="image/*" hidden />
+      </div>
+    </div>
+    <div class="hint">头像仅存本地浏览器，不会上传任何服务器。</div>
+    <div class="acts"><button class="save" id="avatar_close">完成</button></div>
+  </div>
+</div>
+
 <script>
 /* ============================================================
-   聊天风格蒸馏器 —— 通用产品（多人物 profile）
+   万物蒸馏器 —— 通用产品（多人物 profile）
    ============================================================ */
 
 /* ---------- 存储层（localStorage 容错） ---------- */
@@ -264,6 +299,33 @@ let _lsOK=true;
 try{ localStorage.setItem('__pb_probe__','1'); localStorage.removeItem('__pb_probe__'); }catch(e){ _lsOK=false; }
 function lsGet(k){ if(_lsOK){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){} } return null; }
 function lsSet(k,v){ if(_lsOK){ try{ localStorage.setItem(k, JSON.stringify(v)); return true; }catch(e){} } return false; }
+
+/* ---------- 头像（双方可自定义） ---------- */
+const ME_KEY='persona_me_v1';
+let _me=null;
+function loadMe(){ if(_me) return _me; _me=lsGet(ME_KEY)||{avatarImg:'',name:'我'}; return _me; }
+function saveMe(m){ _me=m; lsSet(ME_KEY,m); }
+function setAvatarEl(el,o){
+  if(!el) return;
+  el.innerHTML='';
+  if(o&&o.img){ const i=document.createElement('img'); i.className='avtimg'; i.src=o.img; el.appendChild(i); el.style.background='transparent'; }
+  else { el.textContent=o?o.text||'':''; el.style.background=(o&&o.color)?o.color:''; }
+}
+function meOpt(){ const m=loadMe(); return {img:m.avatarImg||'', text:m.name||'我', color:'#9aa0a6'}; }
+function taOpt(p){ return {img:(p&&p.avatarImg)||'', text:(p&&p.avatar)||'TA', color:(p&&p.avatarColor)||'#5b8def'}; }
+function refreshAvatars(){
+  const p=getActive();
+  document.querySelectorAll('#log .row').forEach(row=>{
+    const avt=row.querySelector('.avt'); if(avt) setAvatarEl(avt, row.classList.contains('me')?meOpt():taOpt(p));
+  });
+  if(p){ setAvatarEl(document.getElementById('chatAv'),taOpt(p)); setAvatarEl(document.getElementById('railAv'),taOpt(p)); }
+  renderConvList();
+}
+function openAvatar(){
+  setAvatarEl(document.getElementById('mePrev'), meOpt());
+  setAvatarEl(document.getElementById('taPrev'), taOpt(getActive()));
+  document.getElementById('avatarMask').classList.add('show');
+}
 
 let _profiles = lsGet(PROFILES_KEY) || null;
 let _activeId = lsGet(ACTIVE_KEY) || null;
@@ -468,8 +530,7 @@ function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
 function addRow(who, content){
   const row=document.createElement('div'); row.className='row '+who;
   const avt=document.createElement('div'); avt.className='avt';
-  if(who==='me'){ avt.textContent='我'; avt.style.background='#9aa0a6'; }
-  else { const p=getActive(); avt.textContent=p.avatar; avt.style.background=p.avatarColor; }
+  setAvatarEl(avt, who==='me'?meOpt():taOpt(getActive()));
   const b=document.createElement('div'); b.className='bubble';
   if(content && typeof content==='object' && content.wx){
     b.classList.add('stkbubble');
@@ -505,7 +566,7 @@ let _typingEl=null,_typingCount=0;
 function showTyping(){
   _typingCount++; if(_typingEl) return;
   const row=document.createElement('div'); row.className='row tao';
-  const avt=document.createElement('div'); avt.className='avt'; const p=getActive(); avt.textContent=p.avatar; avt.style.background=p.avatarColor;
+  const avt=document.createElement('div'); avt.className='avt'; setAvatarEl(avt, taOpt(getActive()));
   const b=document.createElement('div'); b.className='bubble typing'; b.innerHTML='<span></span><span></span><span></span>';
   row.appendChild(avt); row.appendChild(b); log.appendChild(row); log.scrollTop=log.scrollHeight;
   _typingEl=row;
@@ -615,10 +676,14 @@ function refreshMemPanel(){ const mm=document.getElementById('memMask'); if(mm&&
 
 /* ---------- 表情包素材库 ---------- */
 const BUILTIN_STICKERS=[
-  {emoji:'😂',bg:'#fff3c4'},{emoji:'😅',bg:'#e6f4ff'},{emoji:'🤣',bg:'#ffe9e9'},
-  {emoji:'😏',bg:'#eaffea'},{emoji:'😎',bg:'#e6f4ff'},{emoji:'🥲',bg:'#f3e6ff'},
-  {emoji:'😴',bg:'#eef0f3'},{emoji:'🤔',bg:'#fff3c4'},{emoji:'👍',bg:'#eaffea'},
-  {emoji:'🙏',bg:'#fff3c4'},{emoji:'💡',bg:'#fff8e1'},{emoji:'🔥',bg:'#ffe9e9'}
+  {emoji:'😀',bg:'#fff3c4'},{emoji:'😁',bg:'#e6f4ff'},{emoji:'😂',bg:'#ffe9e9'},{emoji:'🤣',bg:'#ffe9e9'},
+  {emoji:'😊',bg:'#eaffea'},{emoji:'😍',bg:'#fde6f0'},{emoji:'😘',bg:'#fde6f0'},{emoji:'😎',bg:'#e6f4ff'},
+  {emoji:'🤔',bg:'#fff3c4'},{emoji:'😏',bg:'#eaffea'},{emoji:'😅',bg:'#e6f4ff'},{emoji:'😓',bg:'#e6f4ff'},
+  {emoji:'😢',bg:'#e6f4ff'},{emoji:'😭',bg:'#e6f4ff'},{emoji:'😡',bg:'#ffe9e9'},{emoji:'🥺',bg:'#fde6f0'},
+  {emoji:'😴',bg:'#eef0f3'},{emoji:'🤗',bg:'#eaffea'},{emoji:'🤩',bg:'#fff3c4'},{emoji:'😬',bg:'#fff3c4'},
+  {emoji:'🥳',bg:'#fff8e1'},{emoji:'😇',bg:'#eaffea'},{emoji:'😈',bg:'#f3e6ff'},{emoji:'🙃',bg:'#eaffea'},
+  {emoji:'👍',bg:'#eaffea'},{emoji:'👎',bg:'#ffe9e9'},{emoji:'👏',bg:'#fff3c4'},{emoji:'🙏',bg:'#fff3c4'},
+  {emoji:'💪',bg:'#eaffea'},{emoji:'🔥',bg:'#ffe9e9'},{emoji:'❤️',bg:'#fde6f0'},{emoji:'💡',bg:'#fff8e1'}
 ];
 const EXCITED_STICKERS=[
   {emoji:'🔥',bg:'#ffe9e9'},{emoji:'👍',bg:'#eaffea'},{emoji:'💡',bg:'#fff8e1'},
@@ -862,9 +927,10 @@ function renderConvList(){
   items.forEach(p=>{
     const div=document.createElement('div'); div.className='convitem'+(p.id===_activeId?' active':'');
     const last=lastPreview(p);
-    div.innerHTML=`<div class="cav" style="background:${p.avatarColor}">${p.avatar}</div>
-      <div class="cmain"><div class="cn"><span>${p.name}</span><span class="ct">${timeAgo(p.createdAt)}</span></div>
-      <div class="cp">${last}</div></div>`;
+    const cav=document.createElement('div'); cav.className='cav'; setAvatarEl(cav, taOpt(p));
+    const cmain=document.createElement('div'); cmain.className='cmain';
+    cmain.innerHTML=`<div class="cn"><span>${p.name}</span><span class="ct">${timeAgo(p.createdAt)}</span></div><div class="cp">${last}</div>`;
+    div.appendChild(cav); div.appendChild(cmain);
     div.onclick=()=>{ setActive(p.id); initChat(); };
     box.appendChild(div);
   });
@@ -878,12 +944,10 @@ function timeAgo(iso){ try{ const d=new Date(iso); const n=new Date(); const dif
 function initChat(){
   const p=getActive();
   if(!p){ showWelcome(); return; }
-  document.getElementById('chatAv').textContent=p.avatar;
-  document.getElementById('chatAv').style.background=p.avatarColor;
+  setAvatarEl(document.getElementById('chatAv'), taOpt(p));
   document.getElementById('chatName').textContent=p.name;
   document.getElementById('chatTip').textContent = p.stats? `已蒸馏 · ${p.stats.count}条记录` : '已蒸馏';
-  document.getElementById('railAv').textContent=p.avatar;
-  document.getElementById('railAv').style.background=p.avatarColor;
+  setAvatarEl(document.getElementById('railAv'), taOpt(p));
   log.innerHTML='';
   const m=loadMemory();
   if(m.conv&&m.conv.length){ m.conv.slice(-30).forEach(x=>addRow(x.role==='user'?'me':'tao',x.content)); sysTip('—— 接着上次聊 ——'); }
@@ -895,13 +959,13 @@ function showWelcome(){
   // 空档案时的欢迎态：引导上传聊天记录蒸馏第一个分身
   document.getElementById('chatAv').textContent='＋';
   document.getElementById('chatAv').style.background='linear-gradient(135deg,#07c160,#0aa35a)';
-  document.getElementById('chatName').textContent='聊天风格蒸馏器';
+  document.getElementById('chatName').textContent='万物蒸馏器';
   document.getElementById('chatTip').textContent='自定义 · 从你的聊天记录开始';
   document.getElementById('railAv').textContent='＋';
   document.getElementById('railAv').style.background='linear-gradient(135deg,#07c160,#0aa35a)';
   log.innerHTML='<div class="welcome">'
     +'<div class="wlogo">🧬</div>'
-    +'<h2>聊天风格蒸馏器</h2>'
+    +'<h2>万物蒸馏器</h2>'
     +'<p class="wdesc">还没有任何人物分身。<br>上传一份聊天记录，自动识别说话人并蒸馏出风格一致的「分身」，之后像微信一样和他聊。</p>'
     +'<button class="wbtn" id="welcomeGo">＋ 上传聊天记录，蒸馏第一个分身</button>'
     +'<p class="wsub">支持 .txt / .md / .json / .csv / .log / .xml / .html 等文本文件，也可直接粘贴。</p>'
@@ -918,6 +982,7 @@ document.getElementById('moreMenu').addEventListener('click',e=>{
   const act=e.target.getAttribute&&e.target.getAttribute('data-act'); if(!act) return;
   document.getElementById('moreMenu').classList.remove('show');
   if(act==='memory'){ renderMemList(); memMask.classList.add('show'); }
+  else if(act==='avatar') openAvatar();
   else if(act==='cfg') openCfg();
   else if(act==='about') aboutMask.classList.add('show');
 });
@@ -955,8 +1020,12 @@ document.getElementById('stkAdd').onclick=()=>document.getElementById('stkFile')
 document.getElementById('stkFile').addEventListener('change',e=>{ const f=e.target.files&&e.target.files[0]; if(!f) return; const rd=new FileReader(); rd.onload=()=>addSticker(rd.result); rd.readAsDataURL(f); e.target.value=''; });
 document.getElementById('attach').onclick=()=>document.getElementById('file').click();
 document.getElementById('file').addEventListener('change',e=>{ const f=e.target.files&&e.target.files[0]; if(!f) return; const rd=new FileReader(); rd.onload=()=>sendImage(rd.result,f.name?('图片：'+f.name):''); rd.readAsDataURL(f); e.target.value=''; });
-document.getElementById('tbShot').onclick=()=>sysTip('（截图为占位图标，正式版可接入屏幕截图）');
-document.getElementById('tbRec').onclick=()=>sysTip('（记录为占位图标，正式版可查看聊天记录）');
+const avatarMask=document.getElementById('avatarMask');
+document.getElementById('avatar_close').onclick=()=>avatarMask.classList.remove('show');
+document.getElementById('meAvBtn').onclick=()=>document.getElementById('meAvFile').click();
+document.getElementById('taAvBtn').onclick=()=>document.getElementById('taAvFile').click();
+document.getElementById('meAvFile').addEventListener('change',e=>{ const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ const m=loadMe(); m.avatarImg=r.result; saveMe(m); setAvatarEl(document.getElementById('mePrev'),meOpt()); refreshAvatars(); }; r.readAsDataURL(f); e.target.value=''; });
+document.getElementById('taAvFile').addEventListener('change',e=>{ const f=e.target.files[0]; if(!f) return; const p=getActive(); if(!p) return; const r=new FileReader(); r.onload=()=>{ p.avatarImg=r.result; saveProfiles(); setAvatarEl(document.getElementById('taPrev'),taOpt(p)); refreshAvatars(); }; r.readAsDataURL(f); e.target.value=''; });
 
 /* 发送绑定 */
 document.getElementById('send').onclick=send;
